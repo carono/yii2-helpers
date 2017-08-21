@@ -1,0 +1,27 @@
+{
+  "name": "carono/yii2-helpers",
+  "description": "Helpers for yii2",
+  "type": "library",
+  "keywords": [
+    "yii2",
+    "helpers"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "homepage": "http://carono.ru",
+      "name": "Alexander Kasyanov",
+      "email": "info@carono.ru"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "~2.0"
+  },
+  "require-dev": {
+  },
+  "autoload": {
+    "psr-4": {
+      "carono\\yii2helpers\\": "src"
+    }
+  }
+}
