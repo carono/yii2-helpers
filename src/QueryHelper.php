@@ -21,20 +21,23 @@ class QueryHelper
         /**
          * @var ActiveRecord $class
          */
+        $db = $db ?: \Yii::$app->db;
         $alias = $alias ? $alias : $model::tableName();
         $class = get_class($model);
-        $db = $db ?: \Yii::$app->db;
+        if ($alias && strpos($alias, '[[') === false && strpos($alias, '{{') === false) {
+            $alias = "[[$alias]]";
+        }
         foreach ($model->safeAttributes() as $attribute) {
             if ($column = $db->getTableSchema($class::tableName())->getColumn($attribute)) {
                 $value = $model->getAttribute($attribute);
                 if ($column->type == 'text' || $column->type == 'string') {
                     if ($db->driverName == 'pgsql') {
-                        $query->andFilterWhere(['ilike', "[[$alias]].[[$attribute]]", $value]);
+                        $query->andFilterWhere(['ilike', "$alias.[[$attribute]]", $value]);
                     } else {
-                        $query->andFilterWhere(['like', "[[$alias]].[[$attribute]]", $value]);
+                        $query->andFilterWhere(['like', "$alias.[[$attribute]]", $value]);
                     }
                 } else {
-                    $query->andFilterWhere(["[[$alias]].[[$attribute]]" => $value]);
+                    $query->andFilterWhere(["$alias.[[$attribute]]" => $value]);
                 }
             }
         }
