@@ -31,7 +31,7 @@ class PhoneHelper
         }
     }
 
-    protected static function clear($number)
+    public static function clear($number)
     {
         return preg_replace('/[^0-9]/x', '', trim($number));
     }
