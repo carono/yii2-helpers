@@ -30,7 +30,7 @@ class QueryHelper
         foreach ($model->safeAttributes() as $attribute) {
             if ($column = $db->getTableSchema($class::tableName())->getColumn($attribute)) {
                 $value = $model->getAttribute($attribute);
-                if ($column->type == 'text' || $column->type == 'string') {
+                if (in_array($column->type, ['text', 'string', 'char'])) {
                     if ($db->driverName == 'pgsql') {
                         $query->andFilterWhere(['ilike', "$alias.[[$attribute]]", $value]);
                     } else {
