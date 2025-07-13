@@ -14,7 +14,7 @@ class SortHelper
      */
     public static function formAttributes($class)
     {
-        $columns = \Yii::$app->db->getTableSchema($class::tableName())->getColumnNames();
+        $columns = $class::getDb()->getTableSchema($class::tableName())->getColumnNames();
         $result = [];
         foreach ($columns as $column) {
             $result[$column] = ['asc' => [$column => SORT_ASC], 'desc' => [$column => SORT_DESC]];
