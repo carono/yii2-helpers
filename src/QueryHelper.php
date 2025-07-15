@@ -21,7 +21,7 @@ class QueryHelper
         /**
          * @var ActiveRecord $class
          */
-        $db = $db ?: \Yii::$app->db;
+        $db = $db ?: $model::getDb();
         $alias = $alias ? $alias : $model::tableName();
         $class = get_class($model);
         if ($alias && strpos($alias, '[[') === false && strpos($alias, '{{') === false) {
